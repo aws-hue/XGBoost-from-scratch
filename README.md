@@ -1,7 +1,9 @@
 1. Problem Definition
+   
 The goal of XGBoost is to minimize prediction error by sequentially adding weak models (e.g., decision trees), each of which corrects the residuals of the previous models.
 
 2. Loss Function
+   
 For regression tasks, the Mean Squared Error (MSE) is used as the loss function:
 
 ![Screenshot 2024-12-30 at 1 08 33 pm](https://github.com/user-attachments/assets/d78e2365-aded-4369-b5ac-e512e7dc57b3)
@@ -13,6 +15,7 @@ Example: Suppose
 ![Screenshot 2024-12-30 at 1 10 15 pm](https://github.com/user-attachments/assets/6a9b5acc-1daf-4282-b680-95537e377753)
 
 3. Initial Prediction
+   
 The initial prediction is the mean of the target variable:
 
 ![Screenshot 2024-12-30 at 1 10 47 pm](https://github.com/user-attachments/assets/d98a2d1e-3cfb-462b-81eb-4f3b14ddd768)
@@ -62,3 +65,24 @@ Taking the second derivative hessian equals 2
 
 Why is the Hessian constant?
 For MSE, the second derivative does not depend on 𝑦𝑖 or 𝑦^𝑖. It is constant because the equation is quadratic.
+
+6. Tree Building: Finding Splits
+   
+How does splitting work?
+The algorithm finds the split point that maximizes the information gain.
+
+Gain Formula:
+
+![Screenshot 2024-12-30 at 1 46 22 pm](https://github.com/user-attachments/assets/7a085bd7-bbea-4279-9994-13afa6a7db7c)
+
+
+Example: Suppose we have a feature 
+x=[1,2,3], corresponding to  y=[10,15,20], and gradients  g=[4,0,−4].
+
+Consider splitting at 
+
+x≤2 (left: [1,2], right: [3]).
+
+Left branch:
+
+
