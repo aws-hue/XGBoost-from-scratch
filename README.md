@@ -1,3 +1,5 @@
+Here you can find the core of xgBoost with simple explanation:
+
 1. Problem Definition
    
 The goal of XGBoost is to minimize prediction error by sequentially adding weak models (e.g., decision trees), each of which corrects the residuals of the previous models.
