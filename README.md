@@ -1,4 +1,4 @@
-Here you can find the core of xgBoost with simple explanation:
+Here you can find the core of xgBoost with simple explanation (p.s. before reading it, I recommend that you brush up on your knowledge of derivatives, error functions, and gradient descent itself) :
 
 1. Problem Definition
    
