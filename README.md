@@ -73,7 +73,10 @@ For MSE, the second derivative does not depend on 𝑦𝑖 or 𝑦^𝑖. It is c
 6. Tree Building: Finding Splits
    
 How does splitting work?
-The algorithm finds the split point that maximizes the information gain.
+The feature values are sorted: This simplifies the calculation of possible partition points.
+Only the boundaries between unique feature values are considered: Each partitioning is done at a point between two neighboring unique values.
+
+The algorithm finds the split point that maximizes the information gain. 
 
 Gain Formula:
 
