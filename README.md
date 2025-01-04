@@ -1,10 +1,29 @@
-Here you can find the core of xgBoost with simple explanation (p.s. before reading it, I recommend that you brush up on your knowledge of derivatives, error functions, and gradient descent itself) :
+# Gradient Boosting with Custom Implementation vs XGBoost
 
-1. Problem Definition
+This repo demonstrates a step-by-step implementation of gradient boosting for regression problems. The custom implementation is compared with the well-known XGBoost library to understand how boosting algorithms work internally.
+
+# Key Insights
+
+## 1. Custom Implementation:
+
+- Offers transparency into gradient boosting mechanics.
+- Regularization slows down convergence but prevents overfitting.
+  
+## 2. XGBoost:
+
+- Faster convergence due to optimized implementation and additional features like tree pruning.
+  
+- Impact of Regularization (𝜆): Higher values reduce weight updates, slowing convergence but improving generalization.
+
+- Impact of Learning Rate (𝜂): Lower values require more boosting steps but stabilize convergence.
+
+# Explanation of algorithm
+
+## 1. Problem Definition
    
 The goal of XGBoost is to minimize prediction error by sequentially adding weak models (e.g., decision trees), each of which corrects the residuals of the previous models.
 
-2. Loss Function
+## 2. Loss Function
    
 For regression tasks, the Mean Squared Error (MSE) is used as the loss function:
 
@@ -16,7 +35,7 @@ Example: Suppose
 
 ![Screenshot 2024-12-30 at 1 10 15 pm](https://github.com/user-attachments/assets/6a9b5acc-1daf-4282-b680-95537e377753)
 
-3. Initial Prediction
+## 3. Initial Prediction
    
 The initial prediction is the mean of the target variable:
 
@@ -28,7 +47,7 @@ Example: If 𝑦=[10,15,20]  , then:
 
 This serves as the baseline prediction.
 
-4. Gradient
+## 4. Gradient
    
 What is a gradient?
 The gradient indicates how to adjust the current predictions to reduce the loss. It is the first derivative of the loss function with respect to the predicted value.
@@ -56,7 +75,7 @@ The gradients are:
 g = [4,0,−4]
 
 
-5. Hessian
+## 5. Hessian
 
 What is a Hessian?
 The Hessian describes how the gradient changes as predictions are updated. It is the second derivative of the loss function with respect to 
@@ -70,7 +89,7 @@ Taking the second derivative hessian equals 2
 Why is the Hessian constant?
 For MSE, the second derivative does not depend on 𝑦𝑖 or 𝑦^𝑖. It is constant because the equation is quadratic.
 
-6. Tree Building: Finding Splits
+## 6. Tree Building: Finding Splits
    
 How does splitting work?
 The feature values are sorted: This simplifies the calculation of possible partition points.
@@ -105,7 +124,7 @@ Calculate Gain:
 <img width="384" alt="Screenshot 2024-12-30 at 9 30 54 pm" src="https://github.com/user-attachments/assets/d58e30c4-b34d-4f79-aef3-158676453376" />
 
 
-7. Updating Leaf Weights
+##  7. Updating Leaf Weights
 After finding the optimal split, the leaf weights (predictions) are updated using the formula:
 
 <img width="187" alt="Screenshot 2024-12-30 at 9 32 17 pm" src="https://github.com/user-attachments/assets/a446a790-5f75-47e2-855d-f78b239005df" />
@@ -115,7 +134,7 @@ Example:
 For ther left branch with λ = 1, w = -4 / (4+1) = -0.8
 
 
-8. Updating Predictions
+## 8. Updating Predictions
 Predictions are updated as follows:
 
 <img width="200" alt="Screenshot 2024-12-30 at 9 33 54 pm" src="https://github.com/user-attachments/assets/0cab36d9-8922-4e1e-90bf-58819d02dccd" />
@@ -127,13 +146,28 @@ If 𝑦^ = =[15,15,15] and the new weight left  =−0.8 for the first leaf:
 𝑦^1 new = 15 + 0.1 * (-0.8) = 14.92
 
 
-9. Iteration
+## 9. Iteration
 This process is repeated: new gradients are calculated, trees are built, and predictions are adjusted. With each iteration, the Mean Squared Error (MSE) decreases.
 
 Final Model
 The final model is an ensemble of all the trees:
 
 <img width="168" alt="Screenshot 2024-12-30 at 9 36 06 pm" src="https://github.com/user-attachments/assets/39a6b2e1-4a81-4f2c-9999-76f1bc5562b7" />
+
+
+
+
+# Visualization
+
+Below are examples of MSE convergence analysis:
+
+- Effect of Regularization (𝜆)
+- Effect of Learning Rate (𝜂):
+
+# Dependencies
+
+- Python 3.7+
+- Libraries: NumPy, Pandas, Matplotlib, Scikit-learn, XGBoost
 
 
 
